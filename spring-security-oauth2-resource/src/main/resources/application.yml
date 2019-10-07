@@ -17,20 +17,21 @@ spring:
       connection-timeout: 30000
       connection-test-query: SELECT 1
 
-#security:
-#  oauth2:
-#    client:
-#      client-id: client
-#      client-secret: secret
-#      access-token-uri: http://localhost:9999/oauth/token
-#      user-authorization-uri: http://localhost:9999/oauth/authorize
-#    resource:
-#      token-info-uri: http://localhost:9999/oauth/check_token
+security:
+  oauth2:
+    client:
+      client-id: client
+      client-secret: secret
+      access-token-uri: http://localhost:9999/oauth/token
+      user-authorization-uri: http://localhost:9999/oauth/authorize
+    resource:
+      token-info-uri: http://localhost:9999/oauth/check_token
+#      id: oauth2-resource 这个配置了并没有效果
 
 server:
   port: 8081
-#  servlet:
-#    context-path: /contents
+  servlet:
+    context-path: /contents
 
 mybatis:
   type-aliases-package: com.example.oauth2.domain
