@@ -3,6 +3,7 @@ package com.example.config;
 import com.example.security.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -55,5 +56,18 @@ public class WebSecurityConfiguration  extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         // 将 check_token 暴露出去，否则资源服务器访问时报 403 错误
         web.ignoring().antMatchers("/oauth/check_token");
+    }
+
+    /**
+     * 注入AuthenticationManager接口，启用OAuth2密码模式
+     *
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        AuthenticationManager manager = super.authenticationManagerBean();
+        return manager;
     }
 }

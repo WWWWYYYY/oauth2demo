@@ -6,6 +6,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -53,9 +54,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         return new JdbcClientDetailsService(dataSource());
     }
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         //替换成自己定义的store，可插拔，容易替换
+        endpoints.authenticationManager(authenticationManager);
         endpoints.tokenStore(tokenStore());
     }
 
