@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.oauth2.mapper.SecurityConfigMapper">
+  <resultMap id="BaseResultMap" type="com.example.oauth2.domain.SecurityConfig">
+    <!--@mbg.generated generated on Sun Oct 06 20:35:21 CST 2019.-->
+    <!--@Table tb_content-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pattern" jdbcType="VARCHAR" property="pattern" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Sun Oct 06 20:35:21 CST 2019.-->
+    id, pattern, type, sort
+  </sql>
+
+</mapper>

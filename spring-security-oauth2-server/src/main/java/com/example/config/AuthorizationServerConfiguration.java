@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.sql.DataSource;
 
@@ -64,9 +65,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         //替换成自己定义的store，可插拔，容易替换
-//        endpoints.tokenStore(new RedisTokenStore(redisConnectionFactory));
+        endpoints.tokenStore(new RedisTokenStore(redisConnectionFactory));
         endpoints.authenticationManager(authenticationManager);
-        endpoints.tokenStore(tokenStore());
+//        endpoints.tokenStore(tokenStore());
     }
 
 
@@ -81,8 +82,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         oauthServer.allowFormAuthenticationForClients();
     }
 
-    public static void main(String[] args) {
-
-        System.out.println(new BCryptPasswordEncoder().encode("secret"));
-    }
+//    public static void main(String[] args) {
+//
+//        System.out.println(new BCryptPasswordEncoder().encode("secret"));
+//    }
 }
