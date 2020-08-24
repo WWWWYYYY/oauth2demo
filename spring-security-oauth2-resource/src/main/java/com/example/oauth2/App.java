@@ -6,6 +6,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * 教程视频地址：https://www.bilibili.com/video/av48590637/?p=17
+ * https://www.bilibili.com/video/av74851468?p=67
  * 接入oauth2以后 资源将不可直接访问。需要获取到access_token 才能访问
  * 1、访问 http://localhost:9999/oauth/authorize?client_id=client&response_type=code 返回 code
  * 2、获取token

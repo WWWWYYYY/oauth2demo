@@ -1,11 +1,13 @@
 package com.example.config;
 
 import com.example.security.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -40,16 +42,13 @@ public class WebSecurityConfiguration  extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl();
-    }
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // 使用自定义认证与授权
-        auth.userDetailsService(userDetailsService());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -57,10 +56,29 @@ public class WebSecurityConfiguration  extends WebSecurityConfigurerAdapter {
         // 将 check_token 暴露出去，否则资源服务器访问时报 403 错误
         web.ignoring().antMatchers("/oauth/check_token");
     }
+//    @Override
+//    public void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests().anyRequest().authenticated()
+//                .and()
+//                .formLogin().permitAll()
+//                .and().csrf().disable();
+//    }
 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .anyRequest().permitAll()
+                .and()
+                .formLogin()
+                .loginProcessingUrl("/login")
+                .permitAll()
+                .and()
+                .csrf()
+                .disable();
+    }
     /**
      * 注入AuthenticationManager接口，启用OAuth2密码模式
-     *
+     *     //AuthenticationManager对象在OAuth2认证服务中要使用，提前放入IOC容器中
      * @return
      * @throws Exception
      */

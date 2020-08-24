@@ -66,7 +66,6 @@ CREATE TABLE `oauth_refresh_token` (
   `token_id` varchar(256) DEFAULT NULL,
   `token` blob,
   `authentication` blob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-  INSERT INTO `oauth_client_details` (`client_id`, `resource_ids`, `client_secret`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`, `authorities`, `access_token_validity`, `refresh_token_validity`, `additional_information`, `autoapprove`) VALUES
-	('client',NULL,'$2a$10$E2UzjdMmQu1dv/Nmu5SvnewMlvljqFwXOMkhAvdbxIT3NG4nXkndu','app','authorization_code','http://www.baidu.com',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `user-center`.`oauth_client_details` (`client_id`, `resource_ids`, `client_secret`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`, `authorities`, `access_token_validity`, `refresh_token_validity`, `additional_information`, `autoapprove`) VALUES ('client', 'oauth2-resource', '$2a$10$E2UzjdMmQu1dv/Nmu5SvnewMlvljqFwXOMkhAvdbxIT3NG4nXkndu', 'write,read', 'client_credentials,implicit,authorization_code,refresh_token,password', 'http://www.baidu.com', NULL, NULL, NULL, NULL, 'false');
