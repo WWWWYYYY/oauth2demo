@@ -96,6 +96,13 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
             }
         });
+        http
+                .httpBasic()
+                .and()
+                .formLogin()
+                .disable()
+                .csrf().disable()//必须支持跨域
+                .logout().disable();
     }
 
 //    @Bean
